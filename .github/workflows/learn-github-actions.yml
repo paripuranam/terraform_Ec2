@@ -12,26 +12,24 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
 
-  terraform-init:
+  tofu-init:
     runs-on: ubuntu-latest
     needs: [check-bats-version]
     steps:
       - uses: actions/checkout@v4
-      - name: Install Terraform
+      - name: Install Tofu
         run: |
-          wget https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
-          unzip terraform_1.0.0_linux_amd64.zip
-          sudo mv terraform /usr/local/bin/
-          terraform --version
-      - name: Terraform Init
-        run: terraform init
+          # Install tofu or replace this with your specific method to install tofu
+          echo "Install tofu here"
+      - name: Tofu Init
+        run: tofu init
 
-  terraform-plan-apply:
+  tofu-plan-apply:
     runs-on: ubuntu-latest
-    needs: [terraform-init]
+    needs: [tofu-init]
     steps:
       - uses: actions/checkout@v4
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
-      - name: Terraform Apply
-        run: terraform apply tfplan
+      - name: Tofu Plan
+        run: tofu plan -out=tfplan
+      - name: Tofu Apply
+        run: tofu apply tfplan
